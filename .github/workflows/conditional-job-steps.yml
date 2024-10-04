@@ -26,13 +26,16 @@ jobs:
 
       - name: Collect job vars
         id: vars
-        continue-on-error: true
         run: |
-          docker manifest inspect ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
+          if docker manifest inspect ${{ env.IMAGE }}:${{ env.IMAGE_TAG }} > /dev/null 2>&1; then
+            echo "status=OK" >> $GITHUB_OUTPUT
+          fi
 #          if true; then echo "status_1=OK" >> $GITHUB_OUTPUT; fi
 #          if false; then echo "status_2=OK" >> $GITHUB_OUTPUT; fi
-#          docker manifest inspect ${IMAGE}:${IMAGE_TAG} > /dev/null ; echo $?
 
+      - name: Inspect vars
+        run: |
+          echo ${{ steps.vars.outputs.status }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
