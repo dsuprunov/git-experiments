@@ -16,12 +16,19 @@ jobs:
           if true; then
             echo "status_ok=OK" >> $GITHUB_OUTPUT
           fi
-          if false; then
-            echo "status_false=ERROR" >> $GITHUB_OUTPUT
-          fi
 
-      - name: Check job vars
-#        if: steps.vars.outputs.status == '1'
+#      - name: Check job vars
+##        if: steps.vars.outputs.status == '1'
+#        run: |
+#          echo "status=${{ steps.vars.outputs.status_ok }}"
+#          echo "status=${{ steps.vars.outputs.status_false }}"
+
+      - name: Check 1
+        if: steps.vars.outputs.status_ok == 'OK'
         run: |
           echo "status=${{ steps.vars.outputs.status_ok }}"
-          echo "status=${{ steps.vars.outputs.status_false }}"
+
+      - name: Check 2
+        if: steps.vars.outputs.status_error == 'ERROR'
+        run: |
+          echo "status=${{ steps.vars.outputs.status_error }}"
