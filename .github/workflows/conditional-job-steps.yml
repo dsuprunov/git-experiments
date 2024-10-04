@@ -29,11 +29,11 @@ jobs:
           fi
 
       - name: Set up Docker Buildx
-        if: steps.vars.outputs.image_not_in_registry != ''
+        if: steps.vars.outputs.image_not_in_registry
         uses: docker/setup-buildx-action@v3
 
       - name: Build and push Docker image
-        if: steps.vars.outputs.image_not_in_registry != ''
+        if: steps.vars.outputs.image_not_in_registry
         uses: docker/build-push-action@v6
         with:
           context: .
