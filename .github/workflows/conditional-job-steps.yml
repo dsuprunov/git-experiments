@@ -7,23 +7,21 @@ on:
       - master
 
 jobs:
-  deploy-staging:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Collect job vars
         id: vars
         run: |
-          # exit code 0 - ok
-          # exit code 1 - error
-          
           if true; then
-            echo "status=OK" >> $GITHUB_OUTPUT
-          else
-            echo "status=ERROR" >> $GITHUB_OUTPUT
+            echo "status_ok=OK" >> $GITHUB_OUTPUT
+          fi
+          if false; then
+            echo "status_false=ERROR" >> $GITHUB_OUTPUT
           fi
 
       - name: Check job vars
 #        if: steps.vars.outputs.status == '1'
         run: |
-          echo "status=${{ steps.vars.outputs.status }}"
-          echo "image=${{ steps.vars.outputs.image }}"
+          echo "status=${{ steps.vars.outputs.status_ok }}"
+          echo "status=${{ steps.vars.outputs.status_false }}"
