@@ -14,17 +14,15 @@ jobs:
         id: vars
         run: |
           if true; then
-            echo "status_ok=OK" >> $GITHUB_OUTPUT
+            echo "status_ok=true" >> $GITHUB_OUTPUT
           fi
 
-#      - name: Check job vars
-##        if: steps.vars.outputs.status == '1'
-#        run: |
-#          echo "status=${{ steps.vars.outputs.status_ok }}"
-#          echo "status=${{ steps.vars.outputs.status_false }}"
-
-      - name: Check 1
+      - name: Do something if status_ok exists
         if: steps.vars.outputs.status_ok
         run: |
-          echo "status=${{ steps.vars.outputs.status_ok }}"
+          echo "status_ok=${{ steps.vars.outputs.status_ok }}"
 
+      - name: Skip something if status_error does not exists
+        if: steps.vars.outputs.status_error
+        run: |
+          echo "status_error=${{ steps.vars.outputs.status_error }}"
