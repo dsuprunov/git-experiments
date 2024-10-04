@@ -31,19 +31,15 @@ jobs:
             echo "image_not_in_registry=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Inspect
-        run: |
-          echo "status=${{ steps.vars.outputs.image_not_in_registry }}"
-#
-#      - name: Set up Docker Buildx
-#        if: steps.vars.outputs.status != ''
-#        uses: docker/setup-buildx-action@v3
-#
-#      - name: Build and push Docker image
-#        if: steps.vars.outputs.status != ''
-#        uses: docker/build-push-action@v6
-#        with:
-#          context: .
-#          push: true
-#          tags: |
-#            ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
+      - name: Set up Docker Buildx
+        if: steps.vars.outputs.image_not_in_registry != ''
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        if: steps.vars.outputs.image_not_in_registry != ''
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
