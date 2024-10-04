@@ -24,11 +24,7 @@ jobs:
 #          echo "status=${{ steps.vars.outputs.status_false }}"
 
       - name: Check 1
-        if: steps.vars.outputs.status_ok == 'OK'
+        if: steps.vars.outputs.status_ok
         run: |
           echo "status=${{ steps.vars.outputs.status_ok }}"
 
-      - name: Check 2
-        if: steps.vars.outputs.status_error == 'ERROR'
-        run: |
-          echo "status=${{ steps.vars.outputs.status_error }}"
