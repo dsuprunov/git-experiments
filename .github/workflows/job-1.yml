@@ -1,0 +1,28 @@
+name: Conditional Jobs Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_job_a:
+        description: 'Run Job A? (true/false)'
+        required: true
+        default: 'false'
+      run_job_b:
+        description: 'Run Job B? (true/false)'
+        required: true
+        default: 'false'
+
+jobs:
+  job_a:
+    if: ${{ github.event.inputs.run_job_a == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job A
+        run: "Job A"
+
+  job_b:
+    if: ${{ github.event.inputs.run_job_b == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job B
+        run: "Job B"

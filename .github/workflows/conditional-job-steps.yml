@@ -2,9 +2,6 @@ name: Conditional job steps
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
 
 env:
   IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/python-dummy-app

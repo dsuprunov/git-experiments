@@ -1,0 +1,25 @@
+name: Conditional Steps Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_step1:
+        description: 'Run Step 1? (true/false)'
+        required: true
+        default: 'false'
+      run_step2:
+        description: 'Run Step 2? (true/false)'
+        required: true
+        default: 'false'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        if: ${{ github.event.inputs.run_step1 == 'true' }}
+        run: echo "Step 1"
+
+      - name: Step 2
+        if: ${{ github.event.inputs.run_step2 == 'true' }}
+        run: echo "Step 2"
