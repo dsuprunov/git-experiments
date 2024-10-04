@@ -14,7 +14,7 @@ jobs:
         id: vars
         run: |
           if true; then
-            echo "status_ok=true" >> $GITHUB_OUTPUT
+            echo "status_ok=tsadadadrue" >> $GITHUB_OUTPUT
           fi
 
       - name: Do something if status_ok exists
