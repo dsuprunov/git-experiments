@@ -23,7 +23,7 @@ jobs:
           fi
 
       - name: Check job vars
-        if: steps.vars.outputs.status == '1'
+#        if: steps.vars.outputs.status == '1'
         run: |
           echo "status=${{ steps.vars.outputs.status }}"
           echo "image=${{ steps.vars.outputs.image }}"
