@@ -13,8 +13,8 @@ jobs:
       - name: Collect job vars
         id: vars
         run: |
-          if ls > /dev/null 2>&1; then echo "status_1=OK" >> $GITHUB_OUTPUT; fi
-          if lllsss > /dev/null 2>&1; then echo "status_2=OK" >> $GITHUB_OUTPUT; fi
+          if ls > /dev/null 2>&1; then echo "status_1=" >> $GITHUB_OUTPUT; fi
+          if lllsss > /dev/null 2>&1; then echo "status_2=" >> $GITHUB_OUTPUT; fi
 
       - name: Do something 1
         if: steps.vars.outputs.status_1 != ''
