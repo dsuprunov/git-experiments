@@ -26,12 +26,12 @@ jobs:
 
       - name: Collect job vars
         id: vars
+        continue-on-error: true
         run: |
+          docker manifest inspect ${IMAGE}:${IMAGE_TAG}
 #          if true; then echo "status_1=OK" >> $GITHUB_OUTPUT; fi
 #          if false; then echo "status_2=OK" >> $GITHUB_OUTPUT; fi
 #          docker manifest inspect ${IMAGE}:${IMAGE_TAG} > /dev/null ; echo $?
-          docker manifest inspect ${IMAGE}:${IMAGE_TAG}
-          true
 
 
       - name: Set up Docker Buildx
