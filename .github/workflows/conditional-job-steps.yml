@@ -13,15 +13,15 @@ jobs:
       - name: Collect job vars
         id: vars
         run: |
-          true  && echo "status_1=OK" >> $GITHUB_OUTPUT
-          false && echo "status_2=OK" >> $GITHUB_OUTPUT
+          if ls > /dev/null 2>&1; then echo "status_1=OK" >> $GITHUB_OUTPUT; fi
+          if lllsss > /dev/null 2>&1; then echo "status_2=OK" >> $GITHUB_OUTPUT; fi
 
       - name: Do something 1
-        if: steps.vars.outputs.status_1
+        if: steps.vars.outputs.status_1 != ''
         run: |
           echo "status_1=${{ steps.vars.outputs.status_1 }}"
 
       - name: Do something 2 (actually should be skipped)
-        if: steps.vars.outputs.status_2
+        if: steps.vars.outputs.status_2 != ''
         run: |
           echo "status_2=${{ steps.vars.outputs.status_2 }}"
