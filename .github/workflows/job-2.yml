@@ -1,4 +1,4 @@
-name: Conditional Steps Workflow
+name: Conditional steps workflow
 
 on:
   workflow_dispatch:

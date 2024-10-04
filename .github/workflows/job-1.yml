@@ -1,4 +1,4 @@
-name: Conditional Jobs Workflow
+name: Conditional jobs workflow
 
 on:
   workflow_dispatch:
