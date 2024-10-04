@@ -43,3 +43,4 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE }}:${{ env.IMAGE_TAG }}
+            ${{ env.IMAGE }}:latest
