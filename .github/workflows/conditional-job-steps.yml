@@ -16,10 +16,10 @@ jobs:
           # exit code 0 - ok
           # exit code 1 - error
           
-          if true then
+          if true; then
             echo "status=OK" >> $GITHUB_OUTPUT
           else
-            echo "status=Error" >> $GITHUB_OUTPUT
+            echo "status=ERROR" >> $GITHUB_OUTPUT
           fi
 
       - name: Check job vars
