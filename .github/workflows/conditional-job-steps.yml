@@ -17,7 +17,7 @@ jobs:
           if lllsss > /dev/null 2>&1; then echo "status_2=" >> $GITHUB_OUTPUT; fi
 
       - name: Do something 1
-        if: steps.vars.outputs.status_1 != ''
+        if: steps.vars.outputs.status_1
         run: |
           echo "status_1=${{ steps.vars.outputs.status_1 }}"
 
