@@ -21,8 +21,8 @@ jobs:
       - name: Collect job vars
         id: vars
         run: |
-          true && echo "status_1=" >> $GITHUB_OUTPUT; fi
-          false && echo "status_2=" >> $GITHUB_OUTPUT; fi
+          true && echo "status_1=" >> $GITHUB_OUTPUT
+          false && echo "status_2=" >> $GITHUB_OUTPUT
 
 #      - name: Log in to Docker Hub
 #        uses: docker/login-action@v3
