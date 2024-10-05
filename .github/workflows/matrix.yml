@@ -4,11 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       selected:
-        description: "Select a company.\n Leave empty to run all jobs."
+        description: "Select a company or leave empty to run all jobs."
         required: false
         default: ""
         type: choice
         options: [
+          '',
           'company-001',
           'company-002',
           'company-003',
