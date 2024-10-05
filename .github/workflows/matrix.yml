@@ -48,8 +48,10 @@ jobs:
         if: steps.vars.outputs.do_not_skip == 'true'
         run: |
           echo "::notice::Run job for: ${{ matrix.company.id }}"
+          echo -e "\033[32mThis is a custom green message\033[0m"      
 
       - name: Mark as skipped
         if: steps.vars.outputs.do_not_skip == 'false'
         run: |
-          echo "::notice::Skip job for: ${{ matrix.company.id }}"
+          echo "::warning::Skip job for: ${{ matrix.company.id }}"
+          echo -e "\033[31mThis is a custom red message\033[0m"
