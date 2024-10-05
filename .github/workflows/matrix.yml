@@ -21,23 +21,22 @@ jobs:
           - { id: 3,  title: "Company-003", logo: "logo003.png", url: "https://company-003.com" }
           - { id: 4,  title: "Company-004", logo: "logo004.png", url: "https://company-004.com" }
           - { id: 5,  title: "Company-005", logo: "logo005.png", url: "https://company-005.com" }
-#          - { id: 6,  title: "Company-006", logo: "logo006.png", url: "https://company-006.com" }
-#          - { id: 7,  title: "Company-007", logo: "logo007.png", url: "https://company-007.com" }
-#          - { id: 8,  title: "Company-008", logo: "logo008.png", url: "https://company-008.com" }
-#          - { id: 9,  title: "Company-009", logo: "logo009.png", url: "https://company-009.com" }
-#          - { id: 10, title: "Company-010", logo: "logo010.png", url: "https://company-010.com" }
-#          - { id: 11, title: "Company-011", logo: "logo011.png", url: "https://company-011.com" }
-#          - { id: 12, title: "Company-012", logo: "logo012.png", url: "https://company-012.com" }
-#          - { id: 13, title: "Company-013", logo: "logo013.png", url: "https://company-013.com" }
-#          - { id: 14, title: "Company-014", logo: "logo014.png", url: "https://company-014.com" }
-#          - { id: 15, title: "Company-015", logo: "logo015.png", url: "https://company-015.com" }
+          - { id: 6,  title: "Company-006", logo: "logo006.png", url: "https://company-006.com" }
+          - { id: 7,  title: "Company-007", logo: "logo007.png", url: "https://company-007.com" }
+          - { id: 8,  title: "Company-008", logo: "logo008.png", url: "https://company-008.com" }
+          - { id: 9,  title: "Company-009", logo: "logo009.png", url: "https://company-009.com" }
+          - { id: 10, title: "Company-010", logo: "logo010.png", url: "https://company-010.com" }
+          - { id: 11, title: "Company-011", logo: "logo011.png", url: "https://company-011.com" }
+          - { id: 12, title: "Company-012", logo: "logo012.png", url: "https://company-012.com" }
+          - { id: 13, title: "Company-013", logo: "logo013.png", url: "https://company-013.com" }
+          - { id: 14, title: "Company-014", logo: "logo014.png", url: "https://company-014.com" }
+          - { id: 15, title: "Company-015", logo: "logo015.png", url: "https://company-015.com" }
 
     name: Build for ${{ matrix.company.title }}
 
-    if: ${{ github.event.inputs.selected_companies == '' || contains(fromJson('["${{ github.event.inputs.selected_companies }}"]'), matrix.company.id) }}
-
     steps:
-      - name: Run job for ${{ matrix.company.title }}
+      - name: Check if company(s) was selected
+        if: ${{ github.event.inputs.selected_companies == '' || contains(github.event.inputs.selected_companies, matrix.company.id) }}
         run: |
           echo "Running job for company ID: ${{ matrix.company.id }}"
           echo "Company Title: ${{ matrix.company.title }}"
