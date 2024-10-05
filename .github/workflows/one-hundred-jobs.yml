@@ -7,6 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
         company:
           - { id: 1,  title: "Company 001", logo: "logo001.png", url: "https://company-001.com" }
