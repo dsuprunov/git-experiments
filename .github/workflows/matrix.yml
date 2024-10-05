@@ -38,18 +38,24 @@ jobs:
       - name: Check if company is selected
         id: check_selection
         run: |
-          if [[ -z "${{ github.event.inputs.selected_companies }}" ]]; then
+          selected_companies="${{ github.event.inputs.selected_companies }}"
+          
+          if [[ -z "$selected_companies" ]]; then
             echo "Running all jobs."
-          elif [[ ! "${{ github.event.inputs.selected_companies }}" =~ ${{ matrix.company.id }} ]]; then
-            echo "Skipping job for company ID: ${{ matrix.company.id }}"
-            echo "::set-output name=skipped::true"
-            exit 0
-          else
-            echo "Running job for company ID: ${{ matrix.company.id }}"
             echo "::set-output name=skipped::false"
+          else
+            IFS=',' read -r -a selected_array <<< "$selected_companies"
+            if [[ ! " ${selected_array[@]} " =~ " ${matrix.company.id} " ]]; then
+              echo "Skipping job for company ID: ${{ matrix.company.id }}"
+              echo "::set-output name=skipped::true"
+              exit 0
+            else
+              echo "Running job for company ID: ${{ matrix.company.id }}"
+              echo "::set-output name=skipped::false"
+            fi
           fi
 
       - name: Mark as skipped
         if: steps.check_selection.outputs.skipped == 'true'
         run: |
-          echo "::notice::Job for company ID ${{ matrix.company.id }} was skipped.
+          echo "::notice::Job for company ID ${{ matrix.company.id }} was skipped."
