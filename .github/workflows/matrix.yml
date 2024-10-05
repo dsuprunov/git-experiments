@@ -44,14 +44,14 @@ jobs:
           selected_companies="${{ github.event.inputs.selected_companies }}"
           if [[ -z "$selected_companies" ]]; then
             echo "Running all jobs."
-            echo "skipped=false" >> $GITHUB_OUTPUT
+            echo "skipped=false" >> "$GITHUB_OUTPUT"
           elif [[ ",$selected_companies," != *",${{ matrix.company.id }},"* ]]; then
             echo "Skipping job for company ID: ${{ matrix.company.id }}"
-            echo "skipped=true" >> $GITHUB_OUTPUT
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
             exit 0
           else
             echo "Running job for company ID: ${{ matrix.company.id }}"
-            echo "skipped=false" >> $GITHUB_OUTPUT
+            echo "skipped=false" >> "$GITHUB_OUTPUT"
 
       - name: Mark as skipped
         if: ${{ steps.check_selection.outputs.skipped == 'true' }}
