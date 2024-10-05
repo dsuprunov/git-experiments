@@ -35,16 +35,16 @@ jobs:
           selected="${{ github.event.inputs.selected }}"
           if [[ -z "$selected" ]]; then
             echo "Running all jobs."
-            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
             echo "::notice::Run job for: ${{ matrix.company.id }}"
+            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"            
           elif [[ "$selected" == "${{ matrix.company.id }}" ]]; then
             echo "Running job for: ${{ matrix.company.id }}"
-            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
             echo "::notice::Run job for: ${{ matrix.company.id }}"
+            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"            
           else
             echo "Skipping job for: ${{ matrix.company.id }}"
-            echo "do_not_skip=false" >> "$GITHUB_OUTPUT"
             echo "::warning::Skip job for: ${{ matrix.company.id }}"
+            echo "do_not_skip=false" >> "$GITHUB_OUTPUT"            
           fi
 
       - name: Do something 1
