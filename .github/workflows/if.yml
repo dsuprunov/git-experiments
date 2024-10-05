@@ -1,0 +1,36 @@
+name: If
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect job vars
+        id: vars
+        run: |
+          echo "this_var_set_to_true=true" >> "$GITHUB_OUTPUT"
+          echo "this_var_set_to_false=false" >> "$GITHUB_OUTPUT"
+          echo "this_var_set_to_empty=" >> "$GITHUB_OUTPUT"
+          echo "this_var_set_to_ok=ok" >> "$GITHUB_OUTPUT"
+
+      - name: Check true
+        if: steps.vars.outputs.this_var_set_to_true
+        run: echo "::notice:: Check true"
+
+      - name: Check false
+        if: steps.vars.outputs.this_var_set_to_false
+        run: echo "::notice:: Check false"
+
+      - name: Check empty
+        if: steps.vars.outputs.this_var_set_to_empty
+        run: echo "::notice:: Check empty"
+
+      - name: Check ok
+        if: steps.vars.outputs.this_var_set_to_ok
+        run: echo "::notice:: Check ok"
+
+      - name: Check not set
+        if: steps.vars.outputs.this_var_is_not_set
+        run: echo "::notice:: Check not set"
