@@ -1,4 +1,4 @@
-name: One hundred jobs
+name: Matrix
 
 on:
   workflow_dispatch:
