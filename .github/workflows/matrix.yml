@@ -35,10 +35,20 @@ jobs:
     name: Build for ${{ matrix.company.title }}
 
     steps:
-      - name: Check if company(s) was selected
-        if: ${{ github.event.inputs.selected_companies == '' || contains(github.event.inputs.selected_companies, matrix.company.id) }}
+      - name: Check if company is selected
+        id: check_selection
         run: |
-          echo "Running job for company ID: ${{ matrix.company.id }}"
-          echo "Company Title: ${{ matrix.company.title }}"
-          echo "Company Logo: ${{ matrix.company.logo }}"
-          echo "Company URL: ${{ matrix.company.url }}"
+          if [[ "${{ github.event.inputs.selected_companies }}" == "" ]]; then
+            echo "Running all jobs."
+          elif [[ ! "${{ github.event.inputs.selected_companies }}" =~ ${{ matrix.company.id }} ]]; then
+            echo "Skipping job for company ID: ${{ matrix.company.id }}"
+            echo "::set-output name=skipped::true"
+            exit 0
+          else
+            echo "Running job for company ID: ${{ matrix.company.id }}"
+            echo "::set-output name=skipped::false"
+
+      - name: Mark as skipped
+        if: steps.check_selection.outputs.skipped == 'true'
+        run: |
+          echo "::notice::Job for company ID ${{ matrix.company.id }} was skipped.
