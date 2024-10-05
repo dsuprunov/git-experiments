@@ -45,11 +45,11 @@ jobs:
           fi
 
       - name: Mark as run
-        if: ${{ steps.vars.outputs.do_not_skip }}
+        if: steps.vars.outputs.do_not_skip == 'true'
         run: |
           echo "::notice::Run job for: ${{ matrix.company.id }}"
 
       - name: Mark as skipped
-        if: ${{ ! steps.vars.outputs.do_not_skip }}
+        if: steps.vars.outputs.do_not_skip == 'false'
         run: |
           echo "::notice::Skip job for: ${{ matrix.company.id }}"
