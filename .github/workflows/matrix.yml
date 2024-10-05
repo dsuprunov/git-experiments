@@ -36,22 +36,21 @@ jobs:
           if [[ -z "$selected" ]]; then
             echo "Running all jobs."
             echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Run job for: ${{ matrix.company.id }}"
           elif [[ "$selected" == "${{ matrix.company.id }}" ]]; then
             echo "Running job for: ${{ matrix.company.id }}"
             echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Run job for: ${{ matrix.company.id }}"
           else
             echo "Skipping job for: ${{ matrix.company.id }}"
-            echo "do_not_skip=false" >> "$GITHUB_OUTPUT"          
+            echo "do_not_skip=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Skip job for: ${{ matrix.company.id }}"
           fi
 
-      - name: Mark as run
-        if: steps.vars.outputs.do_not_skip == 'true'
-        run: |
-          echo "::notice::Run job for: ${{ matrix.company.id }}"
-          echo -e "\033[32mThis is a custom green message\033[0m"      
+      - name: Do something 1
+        if: steps.vars.outputs.do_not_skip
+        run: echo "Hello world 1"
 
-      - name: Mark as skipped
-        if: steps.vars.outputs.do_not_skip == 'false'
-        run: |
-          echo "::warning::Skip job for: ${{ matrix.company.id }}"
-          echo -e "\033[31mThis is a custom red message\033[0m"
+      - name: Do something 2
+        if: steps.vars.outputs.do_not_skip
+        run: echo "Hello world 2"
