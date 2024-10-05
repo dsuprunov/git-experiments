@@ -48,7 +48,6 @@ jobs:
           elif [[ ",$selected_companies," != *",${{ matrix.company.id }},"* ]]; then
             echo "Skipping job for company ID: ${{ matrix.company.id }}"
             echo "skipped=true" >> "$GITHUB_OUTPUT"
-            exit 0
           else
             echo "Running job for company ID: ${{ matrix.company.id }}"
             echo "skipped=false" >> "$GITHUB_OUTPUT"
