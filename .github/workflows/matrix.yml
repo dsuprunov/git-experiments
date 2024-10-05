@@ -48,9 +48,9 @@ jobs:
           fi
 
       - name: Do something 1
-        if: steps.vars.outputs.do_not_skip
+        if: steps.vars.outputs.do_not_skip == 'true'
         run: echo "Hello world 1"
 
       - name: Do something 2
-        if: steps.vars.outputs.do_not_skip
+        if: steps.vars.outputs.do_not_skip == 'true'
         run: echo "Hello world 2"
