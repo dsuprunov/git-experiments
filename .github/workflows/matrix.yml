@@ -3,8 +3,8 @@ name: Matrix
 on:
   workflow_dispatch:
     inputs:
-      selected_companies:
-        description: 'Enter company IDs separated by commas (e.g., 1,3,7). Leave empty to run all jobs.'
+      selected:
+        description: 'Enter a company ID (e.g., 1). Leave empty to run all jobs.'
         required: false
         default: ""
         type: string
@@ -41,16 +41,16 @@ jobs:
       - name: Check if company is selected
         id: check_selection
         run: |
-          selected_companies="${{ github.event.inputs.selected_companies }}"
-          if [[ -z "$selected_companies" ]]; then
+          selected="${{ github.event.inputs.selected }}"
+          if [[ -z "$selected" ]]; then
             echo "Running all jobs."
             echo "skipped=false" >> "$GITHUB_OUTPUT"
-          elif [[ ",$selected_companies," != *",${{ matrix.company.id }},"* ]]; then
-            echo "Skipping job for company ID: ${{ matrix.company.id }}"
-            echo "skipped=true" >> "$GITHUB_OUTPUT"
-          else
+          elif [[ "$selected" == "${{ matrix.company.id }}" ]]; then
             echo "Running job for company ID: ${{ matrix.company.id }}"
             echo "skipped=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping job for company ID: ${{ matrix.company.id }}"
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
 
       - name: Mark as skipped
         if: ${{ steps.check_selection.outputs.skipped == 'true' }}
