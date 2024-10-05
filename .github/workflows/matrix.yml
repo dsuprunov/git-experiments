@@ -29,7 +29,7 @@ jobs:
     name: Build for ${{ matrix.company.title }}
 
     steps:
-      - name: Check if company is selected
+      - name: Collect job vars
         id: vars
         run: |
           selected="${{ github.event.inputs.selected }}"
