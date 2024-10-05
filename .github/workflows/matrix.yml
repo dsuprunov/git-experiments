@@ -51,6 +51,7 @@ jobs:
           else
             echo "Skipping job for company ID: ${{ matrix.company.id }}"
             echo "skipped=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Mark as skipped
         if: ${{ steps.check_selection.outputs.skipped == 'true' }}
