@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       selected:
-        description: 'Enter a company ID (e.g., 1). Leave empty to run all jobs.'
+        description: 'Enter a company ID (e.g., 1).\nLeave empty to run all jobs.'
         required: false
         default: ""
         type: string
