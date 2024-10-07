@@ -8,6 +8,7 @@ on:
         default: ''
         type: choice
         options:
+          - ""
           - All
           - company-001
           - company-002
