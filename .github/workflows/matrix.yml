@@ -54,15 +54,12 @@ jobs:
     name: Deploy for ${{ matrix.company.title }}
 
     steps:
-      - name: Collect job vars
+      - name: Set do-not-skip and other vars
         id: vars
-        if: ${{ github.event.inputs.selected == "All" || github.event.inputs.selected == matrix.company.id }}
+        if: ${{ github.event.inputs.selected == 'All' || github.event.inputs.selected == matrix.company.id }}
         run: |
-          selected="${{ github.event.inputs.selected }}"
-          if [[ "$selected" == "All" || "$selected" == "${{ matrix.company.id }}" ]]; then
             echo "::notice::Running deployment for ${{ matrix.company.title  }}"
             echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Do something 1
         if: steps.vars.outputs.do_not_skip
