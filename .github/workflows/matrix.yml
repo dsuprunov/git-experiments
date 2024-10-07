@@ -8,12 +8,11 @@ on:
         required: false
         default: ''
         type: choice
-        options: [
-          '',
-          'company-001',
-          'company-002',
-          'company-003',
-        ]
+        options:
+          - All
+          - company-001
+          - company-002
+          - company-003
 
 jobs:
   build:
