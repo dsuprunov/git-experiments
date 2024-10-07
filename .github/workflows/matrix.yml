@@ -44,6 +44,7 @@ jobs:
     needs:
       - build
     strategy:
+      fail-fast: false
       max-parallel: 1
       matrix:
         company:
@@ -57,11 +58,9 @@ jobs:
       - name: Skip this company?
         if: ${{ github.event.inputs.selected != 'All' && github.event.inputs.selected != matrix.company.id }}
         run: exit 1
-        continue-on-error: true
 
       - name: Do something 1
         run: echo "Hello world 1"
 
       - name: Do something 2
-        run: |
-          echo "Hello world 2"
+        run: echo "Hello world 2"
