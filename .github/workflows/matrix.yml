@@ -9,15 +9,41 @@ on:
         default: ''
         type: choice
         options:
-          - 'Nothing'
+          - ''
           - 'All'
           - 'company-001'
           - 'company-002'
           - 'company-003'
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+    steps:
+      - name: Checkout
+        run: echo "Checkout"
+
+      - name: Log in to Docker Hub
+        run: echo "Log in to Docker Hub"
+
+      - name: Collect job vars
+        id: vars
+        run: echo "image_not_in_registry=true" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        if: steps.vars.outputs.image_not_in_registry
+        run: echo "Set up Docker Buildx"
+
+      - name: Build and push
+        if: steps.vars.outputs.image_not_in_registry
+        run: echo "Build and push"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build
     strategy:
       max-parallel: 1
       matrix:
@@ -26,31 +52,31 @@ jobs:
           - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
           - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
-    name: Build for ${{ matrix.company.title }}
+    name: Deploy for ${{ matrix.company.title }}
 
-#    steps:
-#      - name: Collect job vars
-#        id: vars
-#        run: |
-#          selected="${{ github.event.inputs.selected }}"
-#          if [[ -z "$selected" ]]; then
-#            echo "Running all jobs."
-#            echo "::notice::Run job for: ${{ matrix.company.id }}"
-#            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
-#          elif [[ "$selected" == "${{ matrix.company.id }}" ]]; then
-#            echo "Running job for: ${{ matrix.company.id }}"
-#            echo "::notice::Run job for: ${{ matrix.company.id }}"
-#            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
-#          else
-#            echo "Skipping job for: ${{ matrix.company.id }}"
-#            echo "::warning::Skip job for: ${{ matrix.company.id }}"
-#            echo "do_not_skip=false" >> "$GITHUB_OUTPUT"
-#          fi
-#
-#      - name: Do something 1
-#        if: steps.vars.outputs.do_not_skip == 'true'
-#        run: echo "Hello world 1"
-#
-#      - name: Do something 2
-#        if: steps.vars.outputs.do_not_skip == 'true'
-#        run: echo "Hello world 2"
+    steps:
+      - name: Collect job vars
+        id: vars
+        run: |
+          selected="${{ github.event.inputs.selected }}"
+          if [[ "$selected" == 'All' ]]; then
+            echo "Running all jobs."
+            echo "::notice::Run job for: ${{ matrix.company.id }}"
+            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$selected" == "${{ matrix.company.id }}" ]]; then
+            echo "Running job for: ${{ matrix.company.id }}"
+            echo "::notice::Run job for: ${{ matrix.company.id }}"
+            echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping job for: ${{ matrix.company.id }}"
+            echo "::warning::Skip job for: ${{ matrix.company.id }}"
+            echo "do_not_skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Do something 1
+        if: steps.vars.outputs.do_not_skip == 'true'
+        run: echo "Hello world 1"
+
+      - name: Do something 2
+        if: steps.vars.outputs.do_not_skip == 'true'
+        run: echo "Hello world 2"
