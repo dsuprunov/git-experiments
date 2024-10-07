@@ -26,7 +26,7 @@ jobs:
           - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
           - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
-    name: Build for ${{ matrix.company.title }}
+#    name: Build for ${{ matrix.company.title }}
 
     steps:
       - name: Collect job vars
