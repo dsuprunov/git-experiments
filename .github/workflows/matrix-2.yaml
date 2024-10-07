@@ -32,6 +32,7 @@ jobs:
 
   deploy-one:
     if: github.event.inputs.selected != 'All'
+    <<: *common_matrix
     runs-on: ubuntu-latest
     needs:
       - build
@@ -44,6 +45,7 @@ jobs:
 
   deploy-all:
     if: github.event.inputs.selected == 'All'
+    <<: *common_matrix
     runs-on: ubuntu-latest
     needs:
       - build
