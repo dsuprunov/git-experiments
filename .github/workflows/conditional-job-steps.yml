@@ -24,7 +24,10 @@ jobs:
       - name: Collect job vars
         id: vars
         run: |
-          if ! docker manifest inspect ${{ env.IMAGE }}:${{ env.IMAGE_TAG }} > /dev/null 2>&1; then
+          if ! docker manifest inspect ${{ env.IMAGE }}:${{ env.IMAGE_TAG }} > /dev/null 2>&1
+          then
+            echo "image_not_in_registry=true" >> "$GITHUB_OUTPUT" 
+            echo "image_not_in_registry=true" >> "$GITHUB_OUTPUT"
             echo "image_not_in_registry=true" >> "$GITHUB_OUTPUT"
           fi
 
