@@ -9,9 +9,19 @@ jobs:
     outputs:
       company: ${{ steps.vars.outputs.company }}
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
       - name: Collect workflow vars
         id: vars
-        run: echo "company=Hello world" >> "$GITHUB_OUTPUT"
+        run: |
+          printenv
+          echo 'company=123>> "$GITHUB_OUTPUT"
 
   deploy:
     needs: [config]
