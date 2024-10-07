@@ -9,7 +9,6 @@ on:
         type: choice
         options:
           - All
-          - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
           - company-001
           - company-002
           - company-003
