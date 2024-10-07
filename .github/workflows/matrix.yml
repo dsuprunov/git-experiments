@@ -57,8 +57,11 @@ jobs:
     steps:
       - name: Collect job vars
         id: vars
-        if: ${{ github.event.inputs.selected  == 'All' || github.event.inputs.selected == matrix.company.id }}
-        run: echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
+        run: |
+          selected="${{ github.event.inputs.selected }}"
+          if [[ "$selected" == "All" || "$selected" == "${{ matrix.company.id }}" ]]
+            then echo "do_not_skip=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Do something 1
         if: steps.vars.outputs.do_not_skip
