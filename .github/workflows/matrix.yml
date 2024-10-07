@@ -82,5 +82,5 @@ jobs:
         if: steps.vars.outputs.do_not_skip == 'true'
         run: |
           echo "Hello world 2"
-          echo "xxx: ${{needs.build.outputs.image_not_in_registry}}"
+          echo "xxx: ${{ needs.build.outputs.image_not_in_registry }}"
          
