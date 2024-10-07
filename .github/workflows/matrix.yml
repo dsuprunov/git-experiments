@@ -41,12 +41,15 @@ jobs:
         run: echo "Build and push"
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs:
       - build
     strategy:
       max-parallel: 1
       matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-22.04
         company:
           - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
           - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
