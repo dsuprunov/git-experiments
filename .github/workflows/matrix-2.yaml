@@ -2,29 +2,9 @@ name: Matrix-2
 
 on:
   workflow_dispatch:
-    inputs:
-      selected:
-        description: ''
-        required: true
-        default: ''
-        type: choice
-        options:
-          - ''
-          - 'All'
-          - 'company-001'
-          - 'company-002'
-          - 'company-003'
-
 
 env:
-  MATRIX: |
-    {
-      "include": [
-        { "id": "company-001", "title": "Company-001", "logo": "logo001.png" },
-        { "id": "company-002", "title": "Company-002", "logo": "logo002.png" },
-        { "id": "company-003", "title": "Company-003", "logo": "logo003.png" },
-      ]
-    }
+  MATRIX: "Hello world"
 
 jobs:
 
@@ -34,28 +14,6 @@ jobs:
       - name: Checkout
         run: echo "Checkout"
 
-#  deploy-one:
-#    if: github.event.inputs.selected != 'All'
-#    runs-on: ubuntu-latest
-#    needs:
-#      - build
-#    environment:
-#      name: deploy-one
-#    name: Deploy for ${{ github.event.inputs.selected }}
-#    steps:
-#      - name: Do something 1
-#        run: echo "Hello world 1"
-
-  deploy-all:
-#    if: github.event.inputs.selected == 'All'
-    strategy:
-      matrix: ${{ fromJson(env.MATRIX) }}
-    name: Deploy for ${{ matrix.company.title }}
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    environment:
-      name: deploy-all
-    steps:
-      - name: Do something 1
-        run: echo "Hello world 1"
+      - name: Test
+        run: |
+          echo "test=${{ env. MATRIX }}"
