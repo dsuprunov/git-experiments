@@ -49,6 +49,6 @@ jobs:
         if: steps.vars.outputs.this_var_is_not_set
         run: echo "::notice::Check non-existent variable"
 
-      - name: Check non-existent variable
+      - name: Check non-existent variable == ''
         if: steps.vars.outputs.this_var_is_not_set == ''
         run: echo "::notice::Check non-existent variable"
