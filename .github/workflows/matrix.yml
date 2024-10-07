@@ -18,7 +18,6 @@ on:
 
 jobs:
   build:
-    if: false
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: 1
@@ -42,6 +41,7 @@ jobs:
         run: echo "Build and push"
 
   deploy:
+    if: false
     runs-on: ubuntu-latest
     needs:
       - build
