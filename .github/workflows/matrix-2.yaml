@@ -15,14 +15,15 @@ on:
           - 'company-002'
           - 'company-003'
 
+common-matrix: &common_matrix
+  strategy:
+    matrix:
+      company:
+        - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
+        - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
+        - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
+
 jobs:
-  common-matrix: &common_matrix
-    strategy:
-      matrix:
-        company:
-          - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
-          - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
-          - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
   build:
     runs-on: ubuntu-latest
