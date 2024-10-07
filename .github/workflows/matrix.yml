@@ -5,14 +5,49 @@ on:
     inputs:
       selected:
         required: true
-        default: ''
+        default: Nothing
         type: choice
         options:
-          - ''
+          - Nothing
           - All
           - company-001
           - company-002
           - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003
+          - Nothing
+          - All
+          - company-001
+          - company-002
+          - company-003          
 
 jobs:
   build:
