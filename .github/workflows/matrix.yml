@@ -55,7 +55,7 @@ jobs:
 
     steps:
       - name: Skip this company?
-        if: ${{ github.event.inputs.selected == "All" || github.event.inputs.selected == matrix.company.id }}
+        if: ${{ github.event.inputs.selected == 'All' || github.event.inputs.selected == matrix.company.id }}
         run: echo "DO_NOT_SKIP=true" >> "$GITHUB_OUTPUT"
 
       - name: Do something 1
