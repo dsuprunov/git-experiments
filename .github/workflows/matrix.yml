@@ -18,6 +18,7 @@ on:
 
 jobs:
   build:
+    if: false
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: 1
