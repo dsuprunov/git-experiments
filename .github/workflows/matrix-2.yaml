@@ -16,6 +16,14 @@ on:
           - 'company-003'
 
 jobs:
+  common-matrix: &common_matrix
+    strategy:
+      matrix:
+        company:
+          - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
+          - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
+          - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -25,10 +33,10 @@ jobs:
   deploy-one:
     if: github.event.inputs.selected != 'All'
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs:
+      - build
     environment:
-      name: one
-      url: https://example.com
+      name: deploy-one
     name: Deploy for ${{ github.event.inputs.selected }}
     steps:
       - name: Do something 1
@@ -37,10 +45,10 @@ jobs:
   deploy-all:
     if: github.event.inputs.selected == 'All'
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs:
+      - build
     environment:
-      name: all
-      url: https://example.com
+      name: deploy-all
     name: Deploy all
     steps:
       - name: Do something 1
