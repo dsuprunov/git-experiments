@@ -15,6 +15,10 @@ on:
           - 'company-002'
           - 'company-003'
 
+concurrency:
+  group: Demo workflow
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
