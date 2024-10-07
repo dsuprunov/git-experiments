@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       selected:
-        required: false
+        required: true
         default: ''
         type: choice
         options:
-          - ""
+          - ''
           - All
           - company-001
           - company-002
