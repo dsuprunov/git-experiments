@@ -55,7 +55,7 @@ jobs:
           - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
           - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
-    name: Deploy for ${{ matrix.company.title }}
+    name: Deploy for ${{ matrix.company.title }} on ${{ matrix.os }}
 
     steps:
       - name: Collect job vars
