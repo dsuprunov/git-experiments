@@ -54,7 +54,7 @@ jobs:
 
     name: Deploy for ${{ matrix.company.title }}
 
-    if: ${{ 'true' == 'false' }}
+    if: ${{ github.event.inputs.selected  == 'All' || github.event.inputs.selected == matrix.company.id }}
 
     steps:
       - name: Do something 1
