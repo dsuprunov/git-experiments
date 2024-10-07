@@ -4,15 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       selected:
+        description: ''
         required: true
-        default: Nothing
+        default: 'Nothing'
         type: choice
         options:
-          - Nothing
-          - All
-          - company-001
-          - company-002
-          - company-003
+          - 'Nothing'
+          - 'All'
+          - 'company-001'
+          - 'company-002'
+          - 'company-003'
 
 jobs:
   build:
