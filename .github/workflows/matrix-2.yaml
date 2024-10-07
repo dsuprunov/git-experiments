@@ -3,17 +3,19 @@ name: Matrix-2
 on:
   workflow_dispatch:
 
-env:
-  MATRIX: "Hello world"
-
 jobs:
+  config:
+    runs-on: ubuntu-latest
+    outputs:
+      company: ${{ steps.vars.outputs.company }}
+    steps:
+      - name: Collect workflow vars
+        id: vars
+        run: echo "company=Hello world" >> "$GITHUB_OUTPUT"
 
-  build:
+  deploy:
+    needs: [config]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        run: echo "Checkout"
-
       - name: Test
-        run: |
-          echo "test=${{ env. MATRIX }}"
+        run: echo "test=${{ needs.config.outputs.company }}"
