@@ -7,25 +7,20 @@ jobs:
   config:
     runs-on: ubuntu-latest
     outputs:
-      company: ${{ steps.vars.outputs.company }}
+      matrix: ${{ steps.vars.outputs.matrix }}
+    env:
+      AAA: 'aaaaaaa'
+
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
       - name: Collect workflow vars
         id: vars
         run: |
-          printenv
-          echo 'company=123>> "$GITHUB_OUTPUT"
+          echo "aaa=$AAA"
+          echo 'matrix=123' >> "$GITHUB_OUTPUT"
 
   deploy:
     needs: [config]
     runs-on: ubuntu-latest
     steps:
       - name: Test
-        run: echo "test=${{ needs.config.outputs.company }}"
+        run: echo "test=${{ needs.config.outputs.matrix }}"
