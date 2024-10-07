@@ -54,7 +54,7 @@ jobs:
 
     name: Deploy for ${{ matrix.company.title }}
 
-    if: ${{ 'true' == 'true' }}
+    if: ${{ 'true' == 'false' }}
 
     steps:
       - name: Do something 1
