@@ -40,9 +40,9 @@ jobs:
           fi          
 
   deploy-one:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.selected != "All" }}
+    if: ${{ github.event.inputs.selected }} != "All"
     needs: [ config ]
+    runs-on: ubuntu-latest
     environment: deploy-one
     strategy:
       matrix:
@@ -56,9 +56,9 @@ jobs:
           echo "Company Logo: ${{ matrix.company.logo }}"
 
   deploy-all:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.selected == "All" }}
+    if: ${{ github.event.inputs.selected }} == "All"
     needs: [ config ]
+    runs-on: ubuntu-latest
     environment: deploy-all
     strategy:
       matrix:
