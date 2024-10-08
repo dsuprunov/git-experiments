@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Build matrix
         id: build-matrix
-        run: echo "matrix=${{ env.MATRIX }}" >> "$GITHUB_OUTPUT"
+        run: echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
 
   deploy-one:
     needs: [ config ]
