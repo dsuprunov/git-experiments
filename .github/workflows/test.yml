@@ -14,27 +14,21 @@ jobs:
 #    environment: env_1
     needs:
       - configure
-    strategy:
-      max-parallel: 1
-      matrix:
-        company:
-          - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
-          - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
-          - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
     steps:
-      - run: echo "Deploy ${{ matrix.company.id }}"
+      - run: echo "Build"
+
+  test:
+    runs-on: ubuntu-latest
+#    environment: env_1
+    needs:
+      - build
+    steps:
+      - run: echo "Test"
 
   deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 #    environment: env_2
     needs:
       - configure
-    strategy:
-      max-parallel: 1
-      matrix:
-        company:
-          - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
-          - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
-          - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
     steps:
-      - run: echo "Deploy ${{ matrix.company.id }}"
+      - run: echo "Deploy"
