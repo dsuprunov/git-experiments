@@ -22,11 +22,16 @@ jobs:
         run: |
           echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
 
-  deploy-one:
+  deploy-all:
     needs: [ config ]
     runs-on: ubuntu-latest
     environment: deploy-one
+    strategy:
+      matrix:
+        company: ${{ fromJSON(needs.config.outputs.matrix) }}
+    name: Deploy for ${{ matrix.company.title }}
     steps:
       - run: |
-          echo "matrix=${{ needs.config.outputs.matrix }}"
-          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
+          echo "ID: ${{ matrix.company.id }}"
+          echo "Company Title: ${{ matrix.company.title }}"
+          echo "Company Logo: ${{ matrix.company.logo }}"
