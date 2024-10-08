@@ -14,27 +14,20 @@ env:
     }
 
 jobs:
-  config:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.build-matrix.outputs.matrix }}
-    steps:
-      - name: Build matrix
-        id: build-matrix
-        run: |
-          echo "matrix=${{ env.MATRIX }}"
-          echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
-
   deploy-one:
-    needs: [ config ]
     runs-on: ubuntu-latest
     environment: deploy-one
+    strategy:
+      max-parallel: 1
+      matrix: ${{ fromJson(env.MATRIX) }}
     steps:
-      - run: echo "matrix=${{ needs.config.outputs.matrix }}"
+      - run: echo "Deploying company ID: ${{ matrix.company.id }}, Title: ${{ matrix.company.title }}"
 
   deploy-all:
-    needs: [ config ]
     runs-on: ubuntu-latest
     environment: deploy-all
+    strategy:
+      max-parallel: 1
+      matrix: ${{ fromJson(env.MATRIX) }}
     steps:
-      - run: echo "matrix=${{ needs.config.outputs.matrix }}"
+      - run: echo "Deploying company ID: ${{ matrix.company.id }}, Title: ${{ matrix.company.title }}"
