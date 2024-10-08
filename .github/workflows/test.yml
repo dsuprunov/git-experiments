@@ -11,14 +11,15 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    environment: env_1
     needs:
       - configure
     steps:
       - run: echo "Build"
 
   deploy:
-    if: ${{ 'true' == 'false' }}
     runs-on: ubuntu-latest
+    environment: env_1
     needs:
       - configure
     steps:
