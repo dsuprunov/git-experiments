@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Build matrix
         id: build-matrix
-        run: echo "matrix=${{ env.MATRIX }}" >> "$GITHUB_OUTPUT"
+        run: echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
 
   deploy-one:
     needs: [ config ]
@@ -34,11 +34,11 @@ jobs:
           echo "matrix=${{ needs.config.outputs.matrix }}"
           echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
 
-  deploy-all:
-    needs: [ config ]
-    runs-on: ubuntu-latest
-    environment: deploy-all
-    steps:
-      - run: |
-          echo "matrix=${{ needs.config.outputs.matrix }}"
+#  deploy-all:
+#    needs: [ config ]
+#    runs-on: ubuntu-latest
+#    environment: deploy-all
+#    steps:
+#      - run: |
+#          echo "matrix=${{ needs.config.outputs.matrix }}"
 #          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
