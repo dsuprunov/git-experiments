@@ -25,6 +25,10 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: xxxx
+      url: https://example.com
+
     needs:
       - configure
     steps:
