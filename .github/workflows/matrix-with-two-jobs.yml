@@ -16,23 +16,23 @@ env:
     {"id": "company-001", "title": "Company-001", "logo": "logo001.png" }
 
 jobs:
-  config:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.build-matrix.outputs.matrix }}
-    steps:
-      - name: Build matrix
-        id: build-matrix
-        run: echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
+#  config:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      matrix: ${{ steps.build-matrix.outputs.matrix }}
+#    steps:
+#      - name: Build matrix
+#        id: build-matrix
+#        run: echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
 
   deploy-one:
-    needs: [ config ]
+#    needs: [ config ]
     runs-on: ubuntu-latest
     environment: deploy-one
     steps:
       - run: |
-          echo "matrix=${{ needs.config.outputs.matrix }}"
-          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
+          echo "matrix=${{ ${MATRIX} }}"
+          echo "matrix=${{ fromJSON(${MATRIX}) }}"
 
 #  deploy-all:
 #    needs: [ config ]
