@@ -20,7 +20,7 @@ jobs:
       - name: Build matrix
         id: build-matrix
         run: |
-          echo "::$(echo "${MATRIX}" | jq -c '.')::"
+          echo "matrix=$(echo "${MATRIX}" | jq -c '.')"
 #          cat matrix.json
 #          MATRIX_JSON=$(cat matrix.json)
 #          echo "matrix=${MATRIX_JSON}" >> "$GITHUB_OUTPUT"
