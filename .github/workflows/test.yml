@@ -32,3 +32,13 @@ jobs:
       - configure
     steps:
       - run: echo "Deploy"
+
+
+  crazy:
+    runs-on: ubuntu-latest
+#    environment: env_2
+    needs:
+      - test
+      - deploy
+    steps:
+      - run: echo "Crazy"
