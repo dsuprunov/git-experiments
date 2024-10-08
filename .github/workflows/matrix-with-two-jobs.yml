@@ -12,10 +12,13 @@ jobs:
       - name: Build matrix
         id: build-matrix
         env:
-          hi: "Hi there"
+          hi: | 
+            - Hi there
+            - Hi here
+            - Hi all
         run: |
           echo "Hello world!"
-          echo "${{ env.hi }}"
+          echo "hi=${{ env.hi }}"
           echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
 
   deploy-one:
