@@ -28,8 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.build-matrix.outputs.matrix }}
-      deploy_one_job_name: ${{ steps.build-matrix.outputs.deploy_one_job_name }}
-      deploy_all_job_name: ${{ steps.build-matrix.outputs.deploy_all_job_name }}
     steps:
       - name: Build matrix
         id: build-matrix
@@ -37,12 +35,8 @@ jobs:
           SELECTED="${{ github.event.inputs.selected }}"
           if [[ "$SELECTED" == 'All' ]]; then
             echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
-            echo "deploy_one_job_name=Deploy One" >> "$GITHUB_OUTPUT"
-            echo "deploy_all_job_name=Deploy All" >> "$GITHUB_OUTPUT"
           else
             echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
-            echo "deploy_one_job_name=Deploy One" >> "$GITHUB_OUTPUT"
-            echo "deploy_all_job_name=Deploy All" >> "$GITHUB_OUTPUT"
           fi          
 
   deploy-one:
@@ -52,7 +46,7 @@ jobs:
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: ${{ needs.config.outputs.deploy_one_job_name }}
+    name: Deploy one
     steps:
       - name: Deploy
         run: |
@@ -67,7 +61,7 @@ jobs:
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: ${{ needs.config.outputs.deploy_all_job_name }}
+    name: Deploy all
     steps:
       - name: Deploy
         run: |
