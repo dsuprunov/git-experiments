@@ -1,4 +1,4 @@
-name: Matrix
+name: Matrix with two jobs
 
 on:
   workflow_dispatch:
