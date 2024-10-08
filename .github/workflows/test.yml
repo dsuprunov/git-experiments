@@ -11,7 +11,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    environment: env_1
+#    environment: env_1
     needs:
       - configure
     steps:
@@ -19,7 +19,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    environment: env_2
+#    environment: env_2
     needs:
       - configure
     steps:
