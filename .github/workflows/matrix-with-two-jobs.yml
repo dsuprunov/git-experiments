@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
 
 env:
-  GLOBAL_MATRIX: 'GLOBAL-MATRIX'
+  MATRIX: |
+    company:
+      - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
+      - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
+      - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
 jobs:
   config:
@@ -14,11 +18,8 @@ jobs:
     steps:
       - name: Build matrix
         id: build-matrix
-        env:
-          LOCAL_MATRIX: 'LOCAL-MATRIX'
         run: |
-          echo "GLOBAL_MATRIX=${{ env.GLOBAL_MATRIX }}"
-          echo "LOCAL_MATRIX=${{ env.LOCAL_MATRIX }}"
+          echo "env.MATRIX=${{ toJSON(env.LOCAL_MATRIX) }}"
           echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"  
 
   deploy-one:
