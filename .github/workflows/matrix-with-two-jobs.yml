@@ -47,9 +47,9 @@ jobs:
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy for ${{ github.event.inputs.selected }}
+    name: Deploy single tenant
     steps:
-      - name: Set do-not-skip and other vars
+      - name: Deploy
         run: |
           echo "ID: ${{ matrix.company.id }}"
           echo "Company Title: ${{ matrix.company.title }}"
