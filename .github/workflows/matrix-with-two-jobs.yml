@@ -3,6 +3,16 @@ name: Matrix with two jobs
 on:
   workflow_dispatch:
 
+env:
+  MATRIX: |
+    {
+      "company": [
+        {"id": "company-001", "title": "Company-001", "logo": "logo001.png" },
+        {"id": "company-002", "title": "Company-002", "logo": "logo002.png" },
+        {"id": "company-003", "title": "Company-003", "logo": "logo003.png" }
+      ]
+    }
+
 jobs:
   config:
     runs-on: ubuntu-latest
@@ -11,14 +21,8 @@ jobs:
     steps:
       - name: Build matrix
         id: build-matrix
-        env:
-          hi: | 
-            - Hi there
-            - Hi here
-            - Hi all
         run: |
-          echo "Hello world!"
-          echo "hi=${{ env.hi }}"
+          echo "matrix=${{ env.MATRIX }}"
           echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
 
   deploy-one:
