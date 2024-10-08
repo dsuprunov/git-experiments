@@ -4,14 +4,16 @@ on:
   workflow_dispatch:
 
 env:
+#  MATRIX: |
+#    {
+#      "company": [
+#        {"id": "company-001", "title": "Company-001", "logo": "logo001.png" },
+#        {"id": "company-002", "title": "Company-002", "logo": "logo002.png" },
+#        {"id": "company-003", "title": "Company-003", "logo": "logo003.png" }
+#      ]
+#    }
   MATRIX: |
-    {
-      "company": [
-        {"id": "company-001", "title": "Company-001", "logo": "logo001.png" },
-        {"id": "company-002", "title": "Company-002", "logo": "logo002.png" },
-        {"id": "company-003", "title": "Company-003", "logo": "logo003.png" }
-      ]
-    }
+    {"id": "company-001", "title": "Company-001", "logo": "logo001.png" }
 
 jobs:
   config:
