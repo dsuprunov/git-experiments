@@ -39,6 +39,6 @@ jobs:
 #    environment: env_2
     needs:
       - test
-      - deploy
+      - build
     steps:
       - run: echo "Crazy"
