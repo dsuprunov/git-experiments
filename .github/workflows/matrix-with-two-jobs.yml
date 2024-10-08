@@ -19,7 +19,7 @@ jobs:
       - name: Build matrix
         id: build-matrix
         run: |
-          echo "env.MATRIX=${{ toJSON(env.LOCAL_MATRIX) }}"
+          echo "env.MATRIX=${{ toJSON(env.MATRIX) }}"
           echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"  
 
   deploy-one:
