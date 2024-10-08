@@ -40,6 +40,7 @@ jobs:
           fi          
 
   deploy-one:
+    if: ${{ github.event.inputs.selected != "All" }}
     needs: [ config ]
     runs-on: ubuntu-latest
     environment: deploy-one
@@ -50,7 +51,22 @@ jobs:
     steps:
       - name: Set do-not-skip and other vars
         run: |
-          echo "${{ fromJSON(needs.config.outputs.matrix) }}"
+          echo "ID: ${{ matrix.company.id }}"
+          echo "Company Title: ${{ matrix.company.title }}"
+          echo "Company Logo: ${{ matrix.company.logo }}"
+
+  deploy-all:
+    if: ${{ github.event.inputs.selected == "All" }}
+    needs: [ config ]
+    runs-on: ubuntu-latest
+    environment: deploy-all
+    strategy:
+      matrix:
+        company: ${{ fromJSON(needs.config.outputs.matrix) }}
+    name: Deploy for ${{ matrix.company.id }}
+    steps:
+      - name: Deploy
+        run: |
           echo "ID: ${{ matrix.company.id }}"
           echo "Company Title: ${{ matrix.company.title }}"
           echo "Company Logo: ${{ matrix.company.logo }}"
