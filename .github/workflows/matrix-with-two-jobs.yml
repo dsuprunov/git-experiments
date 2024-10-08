@@ -1,0 +1,30 @@
+name: Matrix
+
+on:
+  workflow_dispatch:
+
+jobs:
+  config:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.build-matrix.outputs.matrix }}
+    steps:
+      - name: Build matrix
+        id: build-matrix
+        run: |
+          echo "Hello world!"
+          echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
+
+  deploy-one:
+    needs: [ config ]
+    runs-on: ubuntu-latest
+    environment: deploy-one
+    steps:
+      - run: echo "matrix=${{ needs.config.outputs.matrix }}"
+
+  deploy-all:
+    needs: [ config ]
+    runs-on: ubuntu-latest
+    environment: deploy-all
+    steps:
+      - run: echo "matrix=${{ needs.config.outputs.matrix }}"
