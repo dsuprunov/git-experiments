@@ -11,8 +11,11 @@ jobs:
     steps:
       - name: Build matrix
         id: build-matrix
+        env:
+          hi: "Hi there"
         run: |
           echo "Hello world!"
+          echo "${{ env.hi }}"
           echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
 
   deploy-one:
