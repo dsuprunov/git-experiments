@@ -47,7 +47,7 @@ jobs:
       max-parallel: 1
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy ${{ matrix.company.title }}
+    name: Deploy
     steps:
       - name: Deploy
         run: |
@@ -63,7 +63,7 @@ jobs:
       max-parallel: 1
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy ${{ matrix.company.title }}
+    name: Deploy
     steps:
       - name: Deploy
         run: |
