@@ -32,11 +32,11 @@ jobs:
       - name: Build matrix
         id: build-matrix
         run: |
-          selected="${{ github.event.inputs.selected }}"
-          if [[ "$selected" == 'All' ]]; then
+          SELECTED="${{ github.event.inputs.selected }}"
+          if [[ "$SELECTED" == 'All' ]]; then
             echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
           else
-            echo "matrix=$(echo \"${MATRIX}\" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
+            echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
           fi          
 
   deploy-one:
