@@ -47,7 +47,7 @@ jobs:
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy single tenant
+    name: Deploy ${{ matrix.company.id }}
     steps:
       - name: Deploy
         run: |
@@ -63,7 +63,7 @@ jobs:
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy for ${{ matrix.company.id }}
+    name: Deploy ${{ matrix.company.id }}
     steps:
       - name: Deploy
         run: |
