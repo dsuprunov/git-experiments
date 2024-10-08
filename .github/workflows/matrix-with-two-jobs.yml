@@ -24,13 +24,13 @@ jobs:
 #          cat matrix.json
 #          MATRIX_JSON=$(cat matrix.json)
 #          echo "matrix=${MATRIX_JSON}" >> "$GITHUB_OUTPUT"
-          echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
+#          echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
 
-  deploy-one:
-    needs: [ config ]
-    runs-on: ubuntu-latest
-    environment: deploy-one
-    steps:
-      - run: |
-          echo "matrix=${{ needs.config.outputs.matrix }}"
-          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
+#  deploy-one:
+#    needs: [ config ]
+#    runs-on: ubuntu-latest
+#    environment: deploy-one
+#    steps:
+#      - run: |
+#          echo "matrix=${{ needs.config.outputs.matrix }}"
+#          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
