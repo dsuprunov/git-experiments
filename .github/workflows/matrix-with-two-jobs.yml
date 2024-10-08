@@ -44,9 +44,10 @@ jobs:
     needs: [ config ]
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy one
+    name: Deploy ${{ matrix.company.title }}
     steps:
       - name: Deploy
         run: |
@@ -59,9 +60,10 @@ jobs:
     needs: [ config ]
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    name: Deploy all
+    name: Deploy ${{ matrix.company.title }}
     steps:
       - name: Deploy
         run: |
