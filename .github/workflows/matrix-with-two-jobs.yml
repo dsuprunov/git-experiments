@@ -4,14 +4,6 @@ on:
   workflow_dispatch:
 
 env:
-#  MATRIX: |
-#    {
-#      "company": [
-#        {"id": "company-001", "title": "Company-001", "logo": "logo001.png" },
-#        {"id": "company-002", "title": "Company-002", "logo": "logo002.png" },
-#        {"id": "company-003", "title": "Company-003", "logo": "logo003.png" }
-#      ]
-#    }
   MATRIX: |
     [
       {"id": "company-001", "title": "Company-001", "logo": "logo001.png"},
@@ -32,17 +24,12 @@ jobs:
   deploy-one:
     needs: [ config ]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        company: ${{ fromJSON(needs.config.outputs.matrix) }}
     environment: deploy-one
     steps:
       - run: |
-          echo "matrix=${{ needs.config.outputs.matrix }}"
-          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
-
-#  deploy-all:
-#    needs: [ config ]
-#    runs-on: ubuntu-latest
-#    environment: deploy-all
-#    steps:
-#      - run: |
-#          echo "matrix=${{ needs.config.outputs.matrix }}"
-#          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
+          echo "Deploying for company ID: ${{ matrix.company.id }}"
+          echo "Company Title: ${{ matrix.company.title }}"
+          echo "Company Logo: ${{ matrix.company.logo }}"
