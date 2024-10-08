@@ -43,7 +43,7 @@ jobs:
     if: github.event.inputs.selected != 'All'
     needs: [ config ]
     runs-on: ubuntu-latest
-    environment: deploy-one
+#    environment: deploy-one
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
@@ -59,7 +59,7 @@ jobs:
     if: github.event.inputs.selected == 'All'
     needs: [ config ]
     runs-on: ubuntu-latest
-    environment: deploy-all
+#    environment: deploy-all
     strategy:
       matrix:
         company: ${{ fromJSON(needs.config.outputs.matrix) }}
