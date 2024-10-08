@@ -20,10 +20,11 @@ jobs:
       - name: Build matrix
         id: build-matrix
         run: |
-          echo "${{ env.MATRIX }}" | jq -c '.' > matrix.json
-          cat matrix.json
-          MATRIX_JSON=$(cat matrix.json)
-          echo "matrix=${MATRIX_JSON}" >> "$GITHUB_OUTPUT"
+          echo "${MATRIX}" | jq -c '.'
+#          cat matrix.json
+#          MATRIX_JSON=$(cat matrix.json)
+#          echo "matrix=${MATRIX_JSON}" >> "$GITHUB_OUTPUT"
+          echo "matrix=HELLO-WORLD" >> "$GITHUB_OUTPUT"
 
   deploy-one:
     needs: [ config ]
