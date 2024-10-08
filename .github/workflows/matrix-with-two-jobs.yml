@@ -17,17 +17,17 @@ jobs:
   deploy-one:
     runs-on: ubuntu-latest
     environment: deploy-one
-#    strategy:
-#      max-parallel: 1
-#      matrix: ${{ fromJson(env.MATRIX) }}
+    strategy:
+      max-parallel: 1
+      matrix: ${{ fromJson(env.MATRIX) }}
     steps:
-      - run: echo "MATRIX=${{ fromJson(env.MATRIX) }}"
+      - run: echo "111"
 
   deploy-all:
     runs-on: ubuntu-latest
     environment: deploy-all
-#    strategy:
-#      max-parallel: 1
-#      matrix: ${{ fromJson(env.MATRIX) }}
+    strategy:
+      max-parallel: 1
+      matrix: ${{ fromJson(env.MATRIX) }}
     steps:
-      - run: echo "MATRIX=${{ fromJson(env.MATRIX) }}"
+      - run: echo "222"
