@@ -19,17 +19,17 @@ jobs:
     steps:
       - name: Build matrix
         id: build-matrix
-        run: echo "matrix=${MATRIX}" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "${{ env.MATRIX }}" | jq -c '.' > matrix.json
+          cat matrix.json
+          MATRIX_JSON=$(cat matrix.json)
+          echo "matrix=${MATRIX_JSON}" >> "$GITHUB_OUTPUT"
 
   deploy-one:
     needs: [ config ]
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        company: ${{ fromJSON(needs.config.outputs.matrix) }}
     environment: deploy-one
     steps:
       - run: |
-          echo "Deploying for company ID: ${{ matrix.company.id }}"
-          echo "Company Title: ${{ matrix.company.title }}"
-          echo "Company Logo: ${{ matrix.company.logo }}"
+          echo "matrix=${{ needs.config.outputs.matrix }}"
+          echo "matrix=${{ fromJSON(needs.config.outputs.matrix) }}"
