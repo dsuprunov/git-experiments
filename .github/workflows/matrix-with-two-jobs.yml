@@ -28,13 +28,6 @@ env:
     - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          json=
-          echo "JSON_OUTPUT=$json"
-
   config:
     runs-on: ubuntu-latest
     outputs:
