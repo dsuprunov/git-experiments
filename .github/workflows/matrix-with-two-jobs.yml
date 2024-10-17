@@ -16,13 +16,13 @@ on:
           - 'company-003'
 
 env:
+#  MATRIX: |
+#    [
+#      {"id": "company-001", "title": "Company-001", "logo": "logo001.png"},
+#      {"id": "company-002", "title": "Company-002", "logo": "logo002.png"},
+#      {"id": "company-003", "title": "Company-003", "logo": "logo003.png"}
+#    ]
   MATRIX: |
-    [
-      {"id": "company-001", "title": "Company-001", "logo": "logo001.png"},
-      {"id": "company-002", "title": "Company-002", "logo": "logo002.png"},
-      {"id": "company-003", "title": "Company-003", "logo": "logo003.png"}
-    ]
-  MATRIX1: |
     - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
     - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
     - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
@@ -32,23 +32,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          json=$(echo "${{ env.MATRIX  }}" | yq eval -j -)
+          json=
           echo "JSON_OUTPUT=$json"
 
-#  config:
-#    runs-on: ubuntu-latest
-#    outputs:
-#      matrix: ${{ steps.build-matrix.outputs.matrix }}
-#    steps:
-#      - name: Build matrix
-#        id: build-matrix
-#        run: |
-#          SELECTED="${{ github.event.inputs.selected }}"
-#          if [[ "$SELECTED" == 'All' ]]; then
-#            echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
-#          else
-#            echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
-#          fi
+  config:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.build-matrix.outputs.matrix }}
+    steps:
+      - name: Build matrix
+        id: build-matrix
+        run: |
+          SELECTED="${{ github.event.inputs.selected }}"
+          MATRIX=$(echo "${{ env.MATRIX  }}" | yq eval -j -)
+          if [[ "$SELECTED" == 'All' ]]; then
+            echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
+          else
+            echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
+          fi
+          printenv | grep matrix
 #
 #  deploy-one:
 #    if: github.event.inputs.selected != 'All'
