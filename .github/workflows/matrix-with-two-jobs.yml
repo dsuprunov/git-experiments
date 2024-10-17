@@ -48,6 +48,7 @@ jobs:
     steps:
       - name: Deploy
         run: |
+          printenv | sort
           echo "ID: ${{ matrix.company.id }}"
           echo "Company Title: ${{ matrix.company.title }}"
           echo "Company Logo: ${{ matrix.company.logo }}"
@@ -63,6 +64,7 @@ jobs:
     steps:
       - name: Deploy
         run: |
+          printenv | sort
           echo "ID: ${{ matrix.company.id }}"
           echo "Company Title: ${{ matrix.company.title }}"
           echo "Company Logo: ${{ matrix.company.logo }}"
