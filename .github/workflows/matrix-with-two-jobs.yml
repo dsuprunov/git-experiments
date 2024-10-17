@@ -20,22 +20,22 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.build-matrix.outputs.matrix }}
-    env:
-      MATRIX: |
-        - id: 'company-001'
-          title: 'Company-001'
-          logo: 'logo001.png'
-
-        - id: 'company-002'
-          title: 'Company-002'
-          logo: 'logo002.png'
-
-        - id: 'company-003'
-          title: 'Company-003'
-          logo: 'logo003.png'
     steps:
       - name: Build matrix
         id: build-matrix
+        env:
+          MATRIX: |
+            - id: 'company-001'
+              title: 'Company-001'
+              logo: 'logo001.png'
+    
+            - id: 'company-002'
+              title: 'Company-002'
+              logo: 'logo002.png'
+    
+            - id: 'company-003'
+              title: 'Company-003'
+              logo: 'logo003.png'
         run: |
           SELECTED="${{ github.event.inputs.selected }}"
           if [[ "$SELECTED" == 'All' ]]; then
