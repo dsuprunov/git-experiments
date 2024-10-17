@@ -16,12 +16,6 @@ on:
           - 'company-003'
 
 env:
-#  MATRIX: |
-#    [
-#      {"id": "company-001", "title": "Company-001", "logo": "logo001.png"},
-#      {"id": "company-002", "title": "Company-002", "logo": "logo002.png"},
-#      {"id": "company-003", "title": "Company-003", "logo": "logo003.png"}
-#    ]
   MATRIX: |
     - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
     - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
@@ -38,10 +32,10 @@ jobs:
         run: |
           SELECTED="${{ github.event.inputs.selected }}"
           if [[ "$SELECTED" == 'All' ]]; then
-            echo "matrix=$(echo "${MATRIX}" | yq eval -o=json -| jq --compact-output '.')" 
+            echo "matrix=$(echo "${{ env.MATRIX }}" | yq eval -o=json -| jq --compact-output '.')" 
           # >> "$GITHUB_OUTPUT"
           else
-            echo "matrix=$(echo "${MATRIX}" | yq eval -o=json -| jq --compact-output --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" 
+            echo "matrix=$(echo "${{ env.MATRIX }}" | yq eval -o=json -| jq --compact-output --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" 
           # >> "$GITHUB_OUTPUT"
           fi
 
