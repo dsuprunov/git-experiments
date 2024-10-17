@@ -22,49 +22,58 @@ env:
       {"id": "company-002", "title": "Company-002", "logo": "logo002.png"},
       {"id": "company-003", "title": "Company-003", "logo": "logo003.png"}
     ]
+  MATRIX1: |
+    - { id: 'company-001',  title: 'Company-001', logo: 'logo001.png' }
+    - { id: 'company-002',  title: 'Company-002', logo: 'logo002.png' }
+    - { id: 'company-003',  title: 'Company-003', logo: 'logo003.png' }
 
 jobs:
-  config:
+  test:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.build-matrix.outputs.matrix }}
     steps:
-      - name: Build matrix
-        id: build-matrix
-        run: |
-          SELECTED="${{ github.event.inputs.selected }}"
-          if [[ "$SELECTED" == 'All' ]]; then
-            echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
-          else
-            echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
-          fi          
+      - run: echo "MATRIX1={{ env.MATRIX1 }}"
 
-  deploy-one:
-    if: github.event.inputs.selected != 'All'
-    needs: [ config ]
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    steps:
-      - name: Deploy
-        run: |
-          echo "ID: ${{ matrix.company.id }}"
-          echo "Company Title: ${{ matrix.company.title }}"
-          echo "Company Logo: ${{ matrix.company.logo }}"
-
-  deploy-all:
-    if: github.event.inputs.selected == 'All'
-    needs: [ config ]
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        company: ${{ fromJSON(needs.config.outputs.matrix) }}
-    steps:
-      - name: Deploy
-        run: |
-          echo "ID: ${{ matrix.company.id }}"
-          echo "Company Title: ${{ matrix.company.title }}"
-          echo "Company Logo: ${{ matrix.company.logo }}"
+#  config:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      matrix: ${{ steps.build-matrix.outputs.matrix }}
+#    steps:
+#      - name: Build matrix
+#        id: build-matrix
+#        run: |
+#          SELECTED="${{ github.event.inputs.selected }}"
+#          if [[ "$SELECTED" == 'All' ]]; then
+#            echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
+#          else
+#            echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
+#          fi
+#
+#  deploy-one:
+#    if: github.event.inputs.selected != 'All'
+#    needs: [ config ]
+#    runs-on: ubuntu-latest
+#    strategy:
+#      max-parallel: 1
+#      matrix:
+#        company: ${{ fromJSON(needs.config.outputs.matrix) }}
+#    steps:
+#      - name: Deploy
+#        run: |
+#          echo "ID: ${{ matrix.company.id }}"
+#          echo "Company Title: ${{ matrix.company.title }}"
+#          echo "Company Logo: ${{ matrix.company.logo }}"
+#
+#  deploy-all:
+#    if: github.event.inputs.selected == 'All'
+#    needs: [ config ]
+#    runs-on: ubuntu-latest
+#    strategy:
+#      max-parallel: 1
+#      matrix:
+#        company: ${{ fromJSON(needs.config.outputs.matrix) }}
+#    steps:
+#      - name: Deploy
+#        run: |
+#          echo "ID: ${{ matrix.company.id }}"
+#          echo "Company Title: ${{ matrix.company.title }}"
+#          echo "Company Logo: ${{ matrix.company.logo }}"
