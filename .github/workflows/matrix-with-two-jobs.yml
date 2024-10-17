@@ -38,10 +38,10 @@ jobs:
         run: |
           SELECTED="${{ github.event.inputs.selected }}"
           if [[ "$SELECTED" == 'All' ]]; then
-            echo "matrix=$(echo "${MATRIX}" | yq eval -o=json -| jq -c '.')" 
+            echo "matrix=$(echo "${MATRIX}" | yq eval -o=json -| jq --compact-output '.')" 
           # >> "$GITHUB_OUTPUT"
           else
-            echo "matrix=$(echo "${MATRIX}" | yq eval -o=json -| jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" 
+            echo "matrix=$(echo "${MATRIX}" | yq eval -o=json -| jq --compact-output --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" 
           # >> "$GITHUB_OUTPUT"
           fi
 
