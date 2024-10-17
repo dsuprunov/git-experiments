@@ -31,7 +31,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "MATRIX1={{ env.MATRIX1 }}"
+      - run: echo "MATRIX1=${{ env.MATRIX1 }}"
 
 #  config:
 #    runs-on: ubuntu-latest
