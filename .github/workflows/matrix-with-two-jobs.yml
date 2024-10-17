@@ -37,13 +37,16 @@ jobs:
         id: build-matrix
         run: |
           SELECTED="${{ github.event.inputs.selected }}"
-          MATRIX=$(echo "${{ env.MATRIX  }}" | yq eval -j -)
+          MATRIX_JS=$(echo "${{ env.MATRIX  }}" | yq eval -j -)
+          echo "$MATRIX_JS"
           if [[ "$SELECTED" == 'All' ]]; then
-            echo "matrix=$(echo "${MATRIX}" | jq -c '.')" >> "$GITHUB_OUTPUT"
+            echo "matrix=$(echo "${MATRIX_JS}" | jq -c '.')"
+            echo "matrix=$(echo "${MATRIX_JS}" | jq -c '.')" >> "$GITHUB_OUTPUT"
           else
-            echo "matrix=$(echo "${MATRIX}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
+            echo "matrix=$(echo "${MATRIX_JS}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')"
+            echo "matrix=$(echo "${MATRIX_JS}" | jq -c --arg selected "$SELECTED" '[.[] | select(.id == $selected)]')" >> "$GITHUB_OUTPUT"
           fi
-          printenv | grep matrix
+
 #
 #  deploy-one:
 #    if: github.event.inputs.selected != 'All'
