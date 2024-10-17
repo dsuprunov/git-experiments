@@ -31,7 +31,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "MATRIX1=${{ env.MATRIX1 }}"
+      - run: |
+          json=$(echo "${{ env.MATRIX  }}" | yq eval -j -)
+          echo "JSON_OUTPUT=$json"
 
 #  config:
 #    runs-on: ubuntu-latest
