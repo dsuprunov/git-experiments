@@ -7,6 +7,10 @@ on:
         description: 'Custom parameter to pass to child workflow'
         required: true
 
+permissions:
+  actions: write
+  contents: read
+
 jobs:
   trigger-child:
     runs-on: ubuntu-latest
