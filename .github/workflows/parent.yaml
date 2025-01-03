@@ -12,13 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debug Context
-        uses: actions/github-script@v7
-        with:
-          script: |
-            console.log('Repo Owner:', github.context.repo.owner);
-            console.log('Repo Name:', github.context.repo.repo);
-            console.log('Ref:', github.context.ref);
-            console.log('Custom Input:', github.context.payload.inputs?.custom_input);
+        run: |
+          echo "Repository owner: ${{ github.repository_owner }}"
+          echo "Repository name: ${{ github.event.repository.name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Custom Input: ${{ github.event.inputs.custom_input }}"
 
       - name: Trigger Child Workflow
         uses: actions/github-script@v7
@@ -28,7 +26,7 @@ jobs:
               owner: github.context.repo.owner,
               repo: github.context.repo.repo,
               workflow_id: 'child.yaml',
-              ref: github.context.ref,
+              ref: 'main',
               inputs: {
                 custom_input: github.context.payload.inputs.custom_input
               }
