@@ -1,0 +1,26 @@
+name: Parent Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      custom_input:
+        description: 'Custom parameter to pass to child workflow'
+        required: true
+
+jobs:
+  trigger-child:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Child Workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              workflow_id: 'child.yaml',
+              ref: github.context.ref,
+              inputs: {
+                custom_input: github.context.payload.inputs.custom_input
+              }
+            })

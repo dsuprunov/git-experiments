@@ -1,0 +1,16 @@
+name: Child Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      custom_input:
+        description: 'Custom parameter passed from parent workflow'
+        required: true
+
+jobs:
+  display-input:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display the Input
+        run: |
+          echo "Received input: ${{ github.event.inputs.custom_input }}"
