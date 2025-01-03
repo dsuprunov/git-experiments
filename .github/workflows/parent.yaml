@@ -23,11 +23,11 @@ jobs:
         with:
           script: |
             github.rest.actions.createWorkflowDispatch({
-              owner: github.context.repo.owner,
-              repo: github.context.repo.repo,
+              owner: '${{ github.repository_owner }}',
+              repo: '${{ github.event.repository.name }}',
               workflow_id: 'child.yaml',
-              ref: 'main',
+              ref: '${{ github.ref }}',
               inputs: {
-                custom_input: github.context.payload.inputs.custom_input
+                custom_input: '${{ github.event.inputs.custom_input }}'
               }
             })
