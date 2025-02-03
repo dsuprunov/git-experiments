@@ -68,9 +68,9 @@ jobs:
         run: echo "::notice::c OR d"
 
       - name: Check NOT (b OR c)
-        if: ! (steps.vars.outputs.b || steps.vars.outputs.c)
+        if: ${{ !(steps.vars.outputs.b || steps.vars.outputs.c) }}
         run: echo "::notice::NOT (b OR c)"
 
       - name: Check NOT (c OR d)
-        if: ! (steps.vars.outputs.c || steps.vars.outputs.d)
+        if: ${{ !(steps.vars.outputs.c || steps.vars.outputs.d) }}
         run: echo "::notice::NOT (c OR d)"
