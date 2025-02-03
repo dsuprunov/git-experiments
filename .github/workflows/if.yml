@@ -77,4 +77,4 @@ jobs:
 
       - name: Check NOT c
         if: ${{ ! steps.vars.outputs.c }}
-        run: echo "::notice::NOT (c OR d)"
+        run: echo "::notice::NOT c"
