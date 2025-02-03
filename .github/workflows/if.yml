@@ -16,6 +16,8 @@ jobs:
           echo "this_var_set_to_ok=ok" >> "$GITHUB_OUTPUT"
           echo "this_var_set_to_1=1" >> "$GITHUB_OUTPUT"
           echo "this_var_set_to_0=0" >> "$GITHUB_OUTPUT"
+          echo "a=true" >> "$GITHUB_OUTPUT"
+          echo "b=true" >> "$GITHUB_OUTPUT"
 
       - name: Check 'this_var_set_to_true'
         if: steps.vars.outputs.this_var_set_to_true
@@ -52,3 +54,23 @@ jobs:
       - name: Check non-existent variable == ''
         if: steps.vars.outputs.this_var_is_not_set == ''
         run: echo "::notice::Check non-existent variable"
+
+      - name: Check a OR b
+        if: steps.vars.outputs.a || steps.vars.outputs.a
+        run: echo "::notice::a OR b"
+
+      - name: Check b OR c
+        if: steps.vars.outputs.b || steps.vars.outputs.c
+        run: echo "::notice::b OR c"
+
+      - name: Check c OR d
+        if: steps.vars.outputs.c || steps.vars.outputs.d
+        run: echo "::notice::c OR d"
+
+      - name: Check NOT (b OR c)
+        if: ! (steps.vars.outputs.b || steps.vars.outputs.c)
+        run: echo "::notice::NOT (b OR c)"
+
+      - name: Check NOT (c OR d)
+        if: ! (steps.vars.outputs.c || steps.vars.outputs.d)
+        run: echo "::notice::NOT (c OR d)"
