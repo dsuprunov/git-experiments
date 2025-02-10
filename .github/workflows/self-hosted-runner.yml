@@ -1,0 +1,17 @@
+name: Self hosted runner // Single job
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Starting
+        run: echo "Starting"
+
+      - name: Wait for 1 minute
+        run: sleep 60
+
+      - name: Finishing
+        run: echo "Finishing"
