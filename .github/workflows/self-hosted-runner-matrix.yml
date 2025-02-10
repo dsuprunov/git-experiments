@@ -10,7 +10,7 @@ jobs:
       matrix:
         job_id: [1, 2, 3]
     steps:
-      - name: Starting Job ${{ matrix.job_id }} at $(date)"
+      - name: Starting Job ${{ matrix.job_id }}
         run: echo "Starting Job ${{ matrix.job_id }} at $(date)"
 
       - name: Wait for 1 minute
